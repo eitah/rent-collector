@@ -9,7 +9,9 @@ const cp = require('child_process');
 describe('Apartments', () => {
   beforeEach((done) => {
     cp.execFile(`${__dirname}/../scripts/populate.sh`, { cwd: `${__dirname}/../scripts` }, () => {
-      done();
+      cp.execFile(`${__dirname}/../scripts/populate-rent.sh`, { cwd: `${__dirname}/../scripts` }, () => {
+        done();
+      });
     });
   });
 
@@ -93,7 +95,7 @@ describe('Apartments', () => {
     });
     it.skip('should filter apartments by squarefootage more than 1100', (done) => {
       request(app)
-      .get('/apartments?filter[sqft]={gt:1100}')
+      .get('/apartments?filter[sqft]={$gt:1100}')
       .end((err, rsp) => {
         expect(err).to.be.null;
         expect(rsp.status).to.equal(200);
@@ -146,6 +148,21 @@ describe('Apartments', () => {
         expect(err2).to.be.null;
         expect(rsp.status).to.equal(400);
         expect(rsp.body.messages[0]).to.contain('"id" with value "wrong" fails to match the required pattern');
+        done();
+      });
+    });
+  });
+
+  describe('put /apartments/:id/lease', () => {
+    it('should update a apartment', (done) => {
+      request(app)
+      .put('/apartments/012345678901234567890013/lease')
+      .send({ name: 'a3', sqft: 1100, collectedRent: 1200, rent: 2300, bedrooms: 3, floor: 3, renter: '012345678901234567890913' })
+      .end((err, rsp) => {
+        expect(err).to.be.null;
+        expect(rsp.status).to.equal(200);
+        expect(rsp.body.apartment.renter.money).to.equal(60000);
+        expect(rsp.body.renter.apartment.name).to.equal('a3');
         done();
       });
     });

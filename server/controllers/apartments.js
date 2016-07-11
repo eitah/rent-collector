@@ -5,6 +5,7 @@ import Apartment from '../models/apartment';
 import bodyValidator from '../validators/apartments/body';
 import queryValidator from '../validators/apartments/query';
 import paramsValidator from '../validators/apartments/params';
+import Renter from '../models/renter';
 const router = module.exports = express.Router();
 
 // index
@@ -33,6 +34,19 @@ router.get('/:id', paramsValidator, (req, res) => {
 router.put('/:id', paramsValidator, bodyValidator, (req, res) => {
   Apartment.findByIdAndUpdate(req.params.id, res.locals, { new: true }, (err, apartment) => {
     res.send({ apartment });
+  });
+});
+
+// lease
+router.put('/:id/lease', paramsValidator, bodyValidator, (req, res) => {
+  Apartment.findByIdAndUpdate(req.params.id, res.locals, { new: true })
+  .populate('renter')
+  .exec((err, apartment) => {
+    Renter.findByIdAndUpdate(req.body.renter, { apartment: req.params.id }, { new: true })
+    .populate('apartment')
+    .exec((err2, renter) => {
+      res.send({ apartment, renter });
+    });
   });
 });
 

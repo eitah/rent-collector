@@ -16,9 +16,9 @@
     "sqft": 1200,
     "bedrooms": 5,
     "floor": 3,
-    "rent": 2200,
+    "rent": 2500,
     "dateCreated": { "$date": "2016-06-30T00:00:00.000Z" },
-    "renter": null,
+    "renter": "012345678901234567890914",
     "collectedRent": 0
   },
   {

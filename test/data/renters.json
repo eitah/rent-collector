@@ -1,21 +1,26 @@
 [
   {
-    "_id": { "$oid": "012345678901234567890011" },
+    "_id": { "$oid": "012345678901234567890911" },
     "name": "Phillip Glass",
     "money": 10000,
     "apartment": null
   },
   {
-    "_id": { "$oid": "012345678901234567890012" },
+    "_id": { "$oid": "012345678901234567890912" },
     "name": "Lisa Hasnomoney",
     "money": 0,
     "apartment": null
   },
   {
-    "_id": { "$oid": "012345678901234567890013" },
+    "_id": { "$oid": "012345678901234567890913" },
     "name": "Jennifer Stamen",
     "money": 60000,
     "apartment": null
   },
-
+  {
+    "_id": { "$oid": "012345678901234567890914" },
+    "name": "Rick Hasanapartment",
+    "money": 20000,
+    "apartment": "012345678901234567890012"
+  }
 ]

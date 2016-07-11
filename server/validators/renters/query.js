@@ -7,11 +7,7 @@ const schema = {
   limit: joi.number().default(25),
   filter: joi.object().keys({
     name: joi.string(),
-    rent: joi.number(),
-    sqft: joi.number(),
-    bedrooms: joi.number(),
-    floor: joi.number(),
-    rented: joi.boolean(),
+    money: joi.number(),
   }),
   sort: joi.object(),
 };
