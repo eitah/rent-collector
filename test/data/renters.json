@@ -1,0 +1,21 @@
+[
+  {
+    "_id": { "$oid": "012345678901234567890011" },
+    "name": "Phillip Glass",
+    "money": 10000,
+    "apartment": null
+  },
+  {
+    "_id": { "$oid": "012345678901234567890012" },
+    "name": "Lisa Hasnomoney",
+    "money": 0,
+    "apartment": null
+  },
+  {
+    "_id": { "$oid": "012345678901234567890013" },
+    "name": "Jennifer Stamen",
+    "money": 60000,
+    "apartment": null
+  },
+
+]
