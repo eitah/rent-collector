@@ -93,6 +93,19 @@ describe('Apartments', () => {
         done();
       });
     });
+
+    it.only('should filter apartments by vacancy', (done) => {
+      request(app)
+      .get('/apartments?filter[name]=a1&filter[wantVacant]=1')
+      .end((err, rsp) => {
+        expect(err).to.be.null;
+        expect(rsp.status).to.equal(200);
+        expect(rsp.body.apartments).to.have.length(1);
+        expect(rsp.body.apartments[0].floor).to.equal(3);
+        done();
+      });
+    });
+
     it.skip('should filter apartments by squarefootage more than 1100', (done) => {
       request(app)
       .get('/apartments?filter[sqft]={$gt:1100}')

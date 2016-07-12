@@ -11,7 +11,7 @@ const schema = {
     sqft: joi.number(),
     bedrooms: joi.number(),
     floor: joi.number(),
-    wantRented: joi.boolean(),
+    wantVacant: joi.boolean(),
   }),
   sort: joi.object(),
 };

@@ -1,4 +1,4 @@
-/* eslint-disable consistent-return, max-len, no-param-reassign, no-underscore-dangle */
+/* eslint-disable consistent-return, max-len, no-param-reassign, func-names, no-underscore-dangle */
 
 import mongoose from 'mongoose';
 // import Apartment from './apartment';
@@ -11,8 +11,6 @@ const schema = new Schema({
   apartment: { type: mongoose.Schema.ObjectId, ref: 'Apartment', default: null },
 });
 
-
-// pay
 // schema.statics.pay1 = function (id, cb) {
 //   this.findById(id)
 //   .populate('apartment')
@@ -28,6 +26,7 @@ const schema = new Schema({
 //   });
 // };
 
+// pay
 schema.methods.pay = function (apartment, cb) {
   if (this.money < apartment.rent) return cb();
   this.money -= apartment.rent;

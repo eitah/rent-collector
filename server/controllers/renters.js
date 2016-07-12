@@ -44,7 +44,7 @@ router.post('/', bodyValidator, (req, res) => {
   });
 });
 
-// delete d
+// delete
 router.delete('/:id', paramsValidator, (req, res) => {
   Renter.findByIdAndRemove(req.params.id, (err, renter) => {
     if (renter) {
@@ -55,17 +55,17 @@ router.delete('/:id', paramsValidator, (req, res) => {
   });
 });
 
-// pay
-router.put('/:id/pay1', paramsValidator, bodyValidator, (req, res) => {
-  Renter.pay(req.params.id, () => {
-    Renter.findById(req.params.id)
-    .populate('apartment')
-    .exec((err, renter) => {
-      res.send({ renter });
-    });
-  });
-});
+// router.put('/:id/pay1', paramsValidator, bodyValidator, (req, res) => {
+//   Renter.pay(req.params.id, () => {
+//     Renter.findById(req.params.id)
+//     .populate('apartment')
+//     .exec((err, renter) => {
+//       res.send({ renter });
+//     });
+//   });
+// });
 
+// pay
 router.put('/:id/pay', paramsValidator, bodyValidator, (req, res) => {
   Renter.findById(req.params.id, (err, renter) => {
     Apartment.findById(renter.apartment, (err2, apartment) => {
