@@ -2,10 +2,10 @@
 
 import express from 'express';
 import Apartment from '../models/apartment';
+import renterValidator from '../validators/apartments/renter';
 import bodyValidator from '../validators/apartments/body';
 import queryValidator from '../validators/apartments/query';
 import paramsValidator from '../validators/apartments/params';
-import Renter from '../models/renter';
 const router = module.exports = express.Router();
 
 // index
@@ -38,17 +38,26 @@ router.put('/:id', paramsValidator, bodyValidator, (req, res) => {
 });
 
 // lease
-router.put('/:id/lease', paramsValidator, bodyValidator, (req, res) => {
-  Apartment.findByIdAndUpdate(req.params.id, res.locals, { new: true })
-  .populate('renter')
-  .exec((err, apartment) => {
-    Renter.findByIdAndUpdate(req.body.renter, { apartment: req.params.id }, { new: true })
-    .populate('apartment')
-    .exec((err2, renter) => {
-      res.send({ apartment, renter });
+router.put('/:id/lease', paramsValidator, renterValidator, (req, res) => {
+  Apartment.findById(req.params.id, (err, apartment) => {
+    apartment.lease(res.locals, (err2, leasedApartment) => {
+      res.send({ leasedApartment });
     });
   });
 });
+
+// // old lease
+// router.put('/:id/lease', paramsValidator, bodyValidator, (req, res) => {
+//   Apartment.findByIdAndUpdate(req.params.id, res.locals, { new: true })
+//   .populate('renter')
+//   .exec((err, apartment) => {
+//     Renter.findByIdAndUpdate(req.body.renter, { apartment: req.params.id }, { new: true })
+//     .populate('apartment')
+//     .exec((err2, renter) => {
+//       res.send({ apartment, renter });
+//     });
+//   });
+// });
 
 // create
 router.post('/', bodyValidator, (req, res) => {
@@ -57,7 +66,7 @@ router.post('/', bodyValidator, (req, res) => {
   });
 });
 
-// delete d
+// delete
 router.delete('/:id', paramsValidator, (req, res) => {
   Apartment.findByIdAndRemove(req.params.id, (err, apartment) => {
     if (apartment) {

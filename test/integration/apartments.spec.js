@@ -94,7 +94,7 @@ describe('Apartments', () => {
       });
     });
 
-    it.only('should filter apartments by vacancy', (done) => {
+    it.skip('should filter apartments by vacancy', (done) => {
       request(app)
       .get('/apartments?filter[name]=a1&filter[wantVacant]=1')
       .end((err, rsp) => {
@@ -166,11 +166,12 @@ describe('Apartments', () => {
     });
   });
 
+  // lease
   describe('put /apartments/:id/lease', () => {
-    it('should update a apartment', (done) => {
+    it.only('should update a apartment', (done) => {
       request(app)
       .put('/apartments/012345678901234567890013/lease')
-      .send({ name: 'a3', sqft: 1100, collectedRent: 1200, rent: 2300, bedrooms: 3, floor: 3, renter: '012345678901234567890913' })
+      .send({ renter: '012345678901234567890913' })
       .end((err, rsp) => {
         expect(err).to.be.null;
         expect(rsp.status).to.equal(200);
